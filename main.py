@@ -22,7 +22,7 @@ def build_config_from_env():
         "password":           os.environ.get("HOVER_PASSWORD", ""),
         "totp_secret":        os.environ.get("HOVER_TOTP_SECRET", ""),
         "dnsid":              os.environ.get("HOVER_DNS_ID", ""),
-        "nakedDomain":        os.environ.get("HOVER_DOMAIN", "default_domain"),
+        "nakedDomain":        os.environ.get("HOVER_ROOT_DOMAIN", "default_domain"),
         "discoverip":         os.environ.get("HOVER_DISCOVER_IP", "true"),
         "ipaddress":          os.environ.get("HOVER_IP_ADDRESS", ""),
         "srcdomain":          os.environ.get("HOVER_SRC_DOMAIN", ""),
@@ -44,10 +44,9 @@ if __name__ == '__main__':
     config_file = tempfile.NamedTemporaryFile(
         mode='w', suffix='.json', delete=False, dir='/tmp'
     )
-    json.dump(config, config_file)
     config_file.close()
 
-    if args.getDNSID:
+    if os.environ.get("HOVER_GET_DNSIDS", "false").lower() == "true" or args.getDNSID:
         sys.argv = ['hover-update.py', '--loglevel', 'DEBUG', '--getDNSID', '--config', config_file.name]
         hover_updater.main()
         sys.exit(0)
