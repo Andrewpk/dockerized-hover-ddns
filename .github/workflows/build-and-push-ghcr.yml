@@ -34,6 +34,6 @@ jobs:
         context: .
         push: true
         tags: |
-          ghcr.io/${{ steps.meta.outputs.owner }}/dockerized-hover-ddns:latest
           ghcr.io/${{ steps.meta.outputs.owner }}/dockerized-hover-ddns:${{ steps.meta.outputs.sha_short }}
           ghcr.io/${{ steps.meta.outputs.owner }}/dockerized-hover-ddns:${{ steps.meta.outputs.timestamp }}
+          ghcr.io/${{ steps.meta.outputs.owner }}/dockerized-hover-ddns:latest
